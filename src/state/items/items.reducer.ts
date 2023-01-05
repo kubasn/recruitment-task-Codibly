@@ -6,7 +6,6 @@ const itemsReducer = (state: [] = initialState, action: itemsDispatchTypes) => {
   switch (action.type) {
     case actionType.FETCH_ITEMS_START:
       return {
-        ...state,
         isLoading: true,
       };
     case actionType.FETCH_ITEMS_COMPLATE:
@@ -19,6 +18,8 @@ const itemsReducer = (state: [] = initialState, action: itemsDispatchTypes) => {
       return {
         ...state,
         isLoading: false,
+        items: [],
+        error: action.error,
       };
     default:
       return state;

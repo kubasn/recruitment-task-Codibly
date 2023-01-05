@@ -15,6 +15,7 @@ export interface FetchItemsComplate {
 
 export interface FetchItemsError {
   type: typeof actionType.FETCH_ITEMS_ERROR;
+  error: string;
 }
 
 export type itemsDispatchTypes =

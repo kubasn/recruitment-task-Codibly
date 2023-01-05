@@ -34,8 +34,12 @@ export const fetchItems =
         payload: items!.data,
       });
     } catch (error) {
+      let message = "Unknown error";
+      if (error instanceof Error) message = error.message;
+      console.log(message);
       dispatch({
         type: actionType.FETCH_ITEMS_ERROR,
+        error: message,
       });
     }
   };
