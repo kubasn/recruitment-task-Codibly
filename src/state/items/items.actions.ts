@@ -25,9 +25,8 @@ export const fetchItems =
         if (params.perPage) url += `per_page=${params.perPage}&`;
         url = url.slice(0, url.length - 1);
       }
-
+      console.log(url);
       const items = await axios.get(url);
-
       console.log(items);
       dispatch({
         type: actionType.FETCH_ITEMS_COMPLATE,
@@ -36,7 +35,6 @@ export const fetchItems =
     } catch (error) {
       let message = "Unknown error";
       if (error instanceof Error) message = error.message;
-      console.log(message);
       dispatch({
         type: actionType.FETCH_ITEMS_ERROR,
         error: message,

@@ -51,10 +51,14 @@ export default Modal;
 const Container = styled.div`
   position: absolute;
   top: 10%;
-  width: 50%;
+  width: 90%;
   background-color: #faf8f8;
   height: 500px;
   z-index: 10;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const CloseModal = styled(AiOutlineCloseCircle)`

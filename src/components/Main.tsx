@@ -19,6 +19,7 @@ interface MainProps {
   handlePagination: (page: number) => void;
   page: number;
   error: string;
+  perPage: number;
 }
 
 const Main: React.FC<MainProps> = ({
@@ -26,8 +27,10 @@ const Main: React.FC<MainProps> = ({
   handleModal,
   handlePagination,
   page,
+  perPage,
   error,
 }) => {
+  console.log(perPage);
   return (
     <Body>
       {!items?.error && (
@@ -40,7 +43,7 @@ const Main: React.FC<MainProps> = ({
             </tr>
           </thead>
           <tbody>
-            {items && items?.data?.length > 5 ? (
+            {items && items?.data?.length > 1 ? (
               items.data.map((item: any) => (
                 <tr
                   key={item.id}
@@ -77,13 +80,13 @@ const Main: React.FC<MainProps> = ({
         {page > 1 ? (
           <LeftArrow onClick={() => handlePagination(page - 1)} />
         ) : (
-          <LeftArrow />
+          <LeftArrowDisabled />
         )}
         <Span>{page}</Span>
-        {items && items?.data?.length == 6 ? (
+        {items && items?.data?.length == perPage ? (
           <RightArrow onClick={() => handlePagination(page + 1)} />
         ) : (
-          <RightArrow />
+          <RightArrowDisabled />
         )}
       </Pagination>
     </Body>
@@ -91,13 +94,17 @@ const Main: React.FC<MainProps> = ({
 };
 
 const Body = styled.section`
-  width: 60%;
+  width: 90%;
   border-radius: 5px;
 
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: 576px) {
+    width: 60%;
+  }
 `;
 
 const Table = styled.table`
@@ -116,6 +123,7 @@ const Pagination = styled.div`
   font-size: 2rem;
   gap: 1rem;
   align-items: center;
+  text-align: center;
   justify-content: center;
   margin-bottom: 1rem;
 `;
@@ -134,6 +142,17 @@ const RightArrow = styled(BsFillArrowRightCircleFill)`
   &:hover {
     color: #3a3939;
   }
+`;
+
+const LeftArrowDisabled = styled(BsFillArrowLeftCircleFill)`
+  ${LeftArrow}
+  cursor: default;
+  color: #c9c9c9;
+`;
+const RightArrowDisabled = styled(BsFillArrowRightCircleFill)`
+  ${RightArrow}
+  cursor: default;
+  color: #c9c9c9;
 `;
 
 const Span = styled.span`

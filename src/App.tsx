@@ -29,12 +29,15 @@ function App() {
   const [itemModal, setItemModal] = useState<Item | null>(null);
   const [page, setPage] = useState(1);
   useEffect(() => {
-    dispatch(fetchItems({ page: "1" }));
+    // dispatch(fetchItems({ page: "2", perPage: "5" }));
   }, []);
   const onChangeItem = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setWarning(false);
-    if (/^\d+$/.test(value) || value == "") {
+    if (value == "") {
+      setId(value);
+      setSearchParams({});
+    } else if (/^\d+$/.test(value)) {
       setId(value);
       setSearchParams({ id: value });
     } else {
@@ -49,14 +52,20 @@ function App() {
   useEffect(() => {
     const page = searchParams.get("page");
     const id = searchParams.get("id");
-    const perPage = searchParams.get("per_page");
+    const perPage = searchParams.get("per_page") || "5";
+    console.log(perPage, searchParams.get("per_page"));
+
     const params = { page, id, perPage };
+    console.log(params);
     dispatch(fetchItems(params));
   }, [searchParams]);
 
   const handlePagination = (page: number) => {
     setPage(page);
-    setSearchParams({ page: page.toString() });
+    searchParams.set("page", page.toString());
+    setSearchParams(searchParams);
+
+    console.log(searchParams.get("per_page"));
   };
 
   const handleModal = (item: Item) => {
@@ -73,6 +82,7 @@ function App() {
         page={page}
         error={newItems?.error}
         handlePagination={handlePagination}
+        perPage={items?.per_page}
       />
 
       {modal && <Modal {...itemModal} setModal={setModal} />}
