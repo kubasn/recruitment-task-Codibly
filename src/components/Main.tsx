@@ -69,9 +69,11 @@ const Main: React.FC<MainProps> = ({
                 <td>{items.data.year}</td>
               </tr>
             ) : (
+              // !items?.data && (
               <td colSpan={3}>
                 <ItemInfo>{error ? error : "No items!"}</ItemInfo>
               </td>
+              // )
             )}
           </tbody>
         </Table>
@@ -83,7 +85,7 @@ const Main: React.FC<MainProps> = ({
           <LeftArrowDisabled />
         )}
         <Span>{page}</Span>
-        {items && items?.data?.length == perPage ? (
+        {items?.data?.length == perPage && perPage > 1 ? (
           <RightArrow onClick={() => handlePagination(page + 1)} />
         ) : (
           <RightArrowDisabled />

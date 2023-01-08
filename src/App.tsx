@@ -54,10 +54,10 @@ function App() {
     const id = searchParams.get("id");
     const perPage = searchParams.get("per_page") || "5";
     console.log(perPage, searchParams.get("per_page"));
-
     const params = { page, id, perPage };
     console.log(params);
     dispatch(fetchItems(params));
+    if (items?.data?.length > 1) setPage(Number(page));
   }, [searchParams]);
 
   const handlePagination = (page: number) => {
