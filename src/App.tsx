@@ -50,12 +50,10 @@ function App() {
   }, [newItems]);
 
   useEffect(() => {
-    const page = searchParams.get("page");
+    const page = searchParams.get("page") || "1";
     const id = searchParams.get("id");
     const perPage = searchParams.get("per_page") || "5";
-    console.log(perPage, searchParams.get("per_page"));
     const params = { page, id, perPage };
-    console.log(params);
     dispatch(fetchItems(params));
     if (items?.data?.length > 1) setPage(Number(page));
   }, [searchParams]);
@@ -64,8 +62,6 @@ function App() {
     setPage(page);
     searchParams.set("page", page.toString());
     setSearchParams(searchParams);
-
-    console.log(searchParams.get("per_page"));
   };
 
   const handleModal = (item: Item) => {

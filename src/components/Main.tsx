@@ -30,7 +30,6 @@ const Main: React.FC<MainProps> = ({
   perPage,
   error,
 }) => {
-  console.log(perPage);
   return (
     <Body>
       {!items?.error && (
@@ -44,7 +43,7 @@ const Main: React.FC<MainProps> = ({
           </thead>
           <tbody>
             {items && items?.data?.length > 1 ? (
-              items.data.map((item: any) => (
+              items.data.map((item: Item) => (
                 <tr
                   key={item.id}
                   onClick={() => handleModal(item)}
@@ -69,11 +68,9 @@ const Main: React.FC<MainProps> = ({
                 <td>{items.data.year}</td>
               </tr>
             ) : (
-              // !items?.data && (
-              <td colSpan={3}>
-                <ItemInfo>{error ? error : "No items!"}</ItemInfo>
-              </td>
-              // )
+              !items?.data && (
+                <td colSpan={3}>{error && <ItemInfo>{error}</ItemInfo>}</td>
+              )
             )}
           </tbody>
         </Table>
