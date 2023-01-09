@@ -23,8 +23,8 @@ const Modal: React.FC<ItemProps> = ({
     <Container>
       <CloseModal onClick={() => setModal(false)} />
       <div>
-        <h2>Full information about item</h2>
-
+        <Heading2>Full information about item</Heading2>
+        <Underline></Underline>
         <TableModal>
           <tr>
             <th>ID</th>
@@ -51,14 +51,21 @@ export default Modal;
 const Container = styled.div`
   position: absolute;
   top: 10%;
-  width: 90%;
+  width: 85%;
   background-color: #faf8f8;
-  height: 500px;
+  height: 50%;
   z-index: 10;
-
+  border: 1px solid #737373;
+  color: #4d4d4d;
+  border-radius: 10px;
   @media (min-width: 768px) {
     width: 50%;
+    height: 50%;
   }
+`;
+
+const Heading2 = styled.h2`
+  margin-bottom: 5px;
 `;
 
 const CloseModal = styled(AiOutlineCloseCircle)`
@@ -68,7 +75,7 @@ const CloseModal = styled(AiOutlineCloseCircle)`
   top: 15px;
   cursor: pointer;
   &:hover {
-    color: #2b2b2b;
+    color: #545454;
   }
 `;
 
@@ -78,4 +85,12 @@ const TableModal = styled.table`
   & > tr > td {
     padding: 0 15px;
   }
+`;
+
+const Underline = styled.div`
+  margin: auto;
+  height: 2px;
+  display: block;
+  width: 60%;
+  background-color: #424242;
 `;
